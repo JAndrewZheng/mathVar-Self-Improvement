@@ -1,0 +1,16 @@
+2025-10-29:00:20:27 INFO     [__main__:450] Selected Tasks: ['aime24']
+2025-10-29:00:20:27 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
+2025-10-29:00:20:27 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 32768, 'temperature': 0.6, 'top_p': 0.95} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
+2025-10-29:00:20:27 INFO     [evaluator:240] Initializing hf model, with arguments: {'pretrained': 'deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B'}
+2025-10-29:00:20:27 WARNING  [accelerate.utils.other:513] Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+2025-10-29:00:20:27 INFO     [models.huggingface:156] Using device 'cuda:0'
+2025-10-29:00:20:28 INFO     [models.huggingface:423] Model parallel was set to False, max memory was not set, and device map was set to {'': 'cuda:0'}
+`torch_dtype` is deprecated! Use `dtype` instead!
+2025-10-29:00:20:29 INFO     [evaluator:305] aime24: Using gen_kwargs: {'until': ['Question:', '</s>', '<|im_end|>', '<|eot_id|>'], 'do_sample': False, 'temperature': 0.6, 'max_gen_toks': 32768, 'top_p': 0.95}
+2025-10-29:00:20:29 INFO     [evaluator:320] num_fewshot has been set to 0 for aime24 in its config. Manual configuration will be ignored.
+2025-10-29:00:20:29 WARNING  [evaluator:481] Chat template formatting change affects loglikelihood and multiple-choice tasks. See docs/chat-template-readme.md for details.
+2025-10-29:00:20:29 INFO     [api.task:434] Building contexts for aime24 on rank 0...
+  0%|          | 0/30 [00:00<?, ?it/s]100%|██████████| 30/30 [00:00<00:00, 1093.95it/s]
+2025-10-29:00:20:29 INFO     [evaluator:575] Running generate_until requests
+Running generate_until requests:   0%|          | 0/1920 [00:00<?, ?it/s]The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+Running generate_until requests:   0%|          | 1/1920 [17:47<568:57:25, 1067.35s/it]Running generate_until requests:   0%|          | 9/1920 [35:27<110:18:09, 207.79s/it] slurmstepd: error: *** JOB 5655913 ON tron61 CANCELLED AT 2025-10-29T00:56:28 ***

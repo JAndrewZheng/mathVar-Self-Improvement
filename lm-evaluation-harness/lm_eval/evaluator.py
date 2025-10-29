@@ -432,6 +432,7 @@ def evaluate(
     fewshot_as_multiturn: bool = False,
     verbosity: str = "INFO",
     confirm_run_unsafe_code: bool = False,
+    repeats: int = 1,
 ):
     """Instantiate and evaluate a model on a list of tasks.
 
@@ -582,7 +583,7 @@ def evaluate(
                 cloned_reqs.extend([req] * req.repeats)
 
         # run requests through model
-        resps = getattr(lm, reqtype)(cloned_reqs)
+        resps = getattr(lm, reqtype)(cloned_reqs) 
 
         # put responses from model into a list of length K for each request.
         for x, req in zip(resps, cloned_reqs):

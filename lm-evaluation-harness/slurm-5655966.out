@@ -1,0 +1,7 @@
+model=hf\n guard=\n repeats=
+Im here now
+model=hf
+ guard=
+ repeats=
+
+slurmstepd: error: *** JOB 5655966 ON tron46 CANCELLED AT 2025-10-29T10:39:45 ***

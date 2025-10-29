@@ -1,43 +1,0 @@
-2025-10-22:12:34:36 INFO     [__main__:450] Selected Tasks: ['aime24']
-2025-10-22:12:34:36 INFO     [evaluator:202] Setting random seed to 0 | Setting numpy seed to 1234 | Setting torch manual seed to 1234 | Setting fewshot manual seed to 1234
-2025-10-22:12:34:36 WARNING  [evaluator:214] generation_kwargs: {'max_gen_toks': 32767} specified through cli, these settings will update set parameters in yaml tasks. Ensure 'do_sample=True' for non-greedy decoding!
-2025-10-22:12:34:36 INFO     [evaluator:240] Initializing hf model, with arguments: {'pretrained': 'Qwen/Qwen2.5-Math-7B'}
-2025-10-22:12:34:37 WARNING  [accelerate.utils.other:513] Detected kernel version 4.18.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
-2025-10-22:12:34:37 INFO     [models.huggingface:156] Using device 'cuda:0'
-2025-10-22:12:34:38 INFO     [models.huggingface:423] Model parallel was set to False, max memory was not set, and device map was set to {'': 'cuda:0'}
-`torch_dtype` is deprecated! Use `dtype` instead!
-Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [01:35<04:45, 95.33s/it]Fetching 4 files: 100%|██████████| 4/4 [01:35<00:00, 23.83s/it]
-Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:07<00:21,  7.01s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:14<00:14,  7.04s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:20<00:06,  6.98s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:27<00:00,  6.77s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:27<00:00,  6.86s/it]
-2025-10-22:12:36:42 INFO     [evaluator:305] aime24: Using gen_kwargs: {'until': ['Question:', '</s>', '<|im_end|>', '<|eot_id|>'], 'do_sample': False, 'temperature': 0.0, 'max_gen_toks': 32767}
-2025-10-22:12:36:42 INFO     [evaluator:320] num_fewshot has been set to 0 for aime24 in its config. Manual configuration will be ignored.
-2025-10-22:12:36:42 WARNING  [evaluator:480] Chat template formatting change affects loglikelihood and multiple-choice tasks. See docs/chat-template-readme.md for details.
-2025-10-22:12:36:42 INFO     [api.task:434] Building contexts for aime24 on rank 0...
-  0%|          | 0/30 [00:00<?, ?it/s]100%|██████████| 30/30 [00:00<00:00, 1207.34it/s]
-2025-10-22:12:36:42 INFO     [evaluator:574] Running generate_until requests
-Running generate_until requests:   0%|          | 0/30 [00:00<?, ?it/s]Traceback (most recent call last):
-  File "/fs/nexus-scratch/azheng15/miniconda3/envs/mathVarRL/bin/lm_eval", line 7, in <module>
-    sys.exit(cli_evaluate())
-             ~~~~~~~~~~~~^^
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/__main__.py", line 459, in cli_evaluate
-    results = evaluator.simple_evaluate(
-        model=args.model,
-    ...<25 lines>...
-        **request_caching_args,
-    )
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/utils.py", line 458, in _wrapper
-    return fn(*args, **kwargs)
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/evaluator.py", line 357, in simple_evaluate
-    results = evaluate(
-        lm=lm,
-    ...<12 lines>...
-        confirm_run_unsafe_code=confirm_run_unsafe_code,
-    )
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/utils.py", line 458, in _wrapper
-    return fn(*args, **kwargs)
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/evaluator.py", line 585, in evaluate
-    resps = getattr(lm, reqtype)(cloned_reqs)
-  File "/fs/nexus-scratch/azheng15/research/self-improvement/Var-self-improvement/lm-evaluation-harness/lm_eval/models/huggingface.py", line 1445, in generate_until
-    assert max_ctx_len > 0, (
-           ^^^^^^^^^^^^^^^
-AssertionError: Invalid configuration: requested max tokens to generate (32767) must be less than model's maximum sequence length (4096).
-Running generate_until requests:   0%|          | 0/30 [00:00<?, ?it/s]
