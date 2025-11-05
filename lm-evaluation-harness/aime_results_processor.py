@@ -1,36 +1,33 @@
 import re
 from typing import Dict, List
 
-def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
+def process_results(results: List[str]) -> List[int]:
     
-    retval = 0
-    response = results[0]
+    res = []
+    for response in results:
 
-    # Try to extract answer from $...$ format first
-    indices = [pos for pos, char in enumerate(response) if char == "$"]
-    if len(indices) <= 1:
-        answer = response
-    else:
-        answer = response[indices[0] + 1 : indices[-1]]
+        # Try to extract answer from $...$ format first
+        indices = [pos for pos, char in enumerate(response) if char == "$"]
+        if len(indices) <= 1:
+            answer = response
+        else:
+            answer = response[indices[0] + 1 : indices[-1]]
 
-    # Extract from \\boxed{} if present
-    boxed_answer = last_boxed_only_string(response)
-    if boxed_answer is not None:
-        try:
-            boxed_content = remove_boxed(boxed_answer)
-            if boxed_content is not None:
-                answer = boxed_content
-        except (AssertionError, IndexError):
-            pass
+        # Extract from \\boxed{} if present
+        boxed_answer = last_boxed_only_string(response)
+        if boxed_answer is not None:
+            try:
+                boxed_content = remove_boxed(boxed_answer)
+                if boxed_content is not None:
+                    answer = boxed_content
+            except (AssertionError, IndexError):
+                pass
+        
+        if len(answer) > 30:
+            answer = "N/A"
+        res.append(answer)
 
-    print(f"Answer: {answer}")
-    # Check if answer matches target
-    answer_key = next(k for k in doc.keys() if k.lower() == "answer")
-    target = str(doc[answer_key])
-    if is_equiv(answer, target):
-        retval = 1
-
-    return {"exact_match": retval}
+    return res
 
 # string normalization from https://github.com/EleutherAI/lm-evaluation-harness/blob/master/lm_eval/tasks/hendrycks_math.py
 def is_equiv(str1, str2, verbose=False):
