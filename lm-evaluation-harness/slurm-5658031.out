@@ -1,8 +1,0 @@
-model=hf\n guard=\n repeats=
-Im here now
-model=hf
- guard=
- repeats=
-
-Elapsed time: 0 days, 0 hours, 1 minutes, 23 seconds
-slurmstepd: error: Detected 1 oom_kill event in StepId=5658031.batch. Some of the step tasks have been OOM Killed.

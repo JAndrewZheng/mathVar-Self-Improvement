@@ -46,11 +46,22 @@ class FilterEnsemble:
         resps, docs = zip(*((inst.resps, inst.doc) for inst in instances))
         resps, docs = list(resps), list(docs)
 
+        print(f"length of resps in f.apply: {len(resps)}")
+        print(f"length of each resp in f.apply: {len(resps[0])}")
+        print(f"type of each filter: {[type(filt) for filt in self.filters]}")
+        print(type(self.filters))
         for f in self.filters:
             # apply filters in sequence
             resps = f().apply(resps, docs)
-
+        
+        # print(f().apply([["lolol", "lolol"]], docs))
+        print(f"resps after apply function: {resps}")
+        for resp in resps:
+            print(f"resp after apply function: {resp}")
+            print(f"type of resp: {type(resp)}")
         # add the end results after filtering to filtered_requests of their respective source instances.
         # has key `self.name`: each FilterEnsemble applied in a given run should use a different name.
         for inst, resp in zip(instances, resps):
+            print(f"resp in filter: {resp}")
+            print(f"len resp in filter: {len(resp)}")
             inst.filtered_resps[self.name] = resp

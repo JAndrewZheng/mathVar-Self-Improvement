@@ -1,8 +1,9 @@
 import re
 from typing import Dict, List
 
-
 def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
+    
+    print("doc: ", doc)
     retval = 0
     response = results[0]
 
@@ -30,7 +31,6 @@ def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
         retval = 1
 
     return {"exact_match": retval}
-
 
 # string normalization from https://github.com/EleutherAI/lm-evaluation-harness/blob/master/lm_eval/tasks/hendrycks_math.py
 def is_equiv(str1, str2, verbose=False):

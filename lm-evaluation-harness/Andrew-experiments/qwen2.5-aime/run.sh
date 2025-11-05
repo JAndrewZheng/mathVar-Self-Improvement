@@ -1,13 +1,13 @@
 #!/bin/bash
 
 # Define parameters:
-model="hf"
+model="vllm"
 model_args="pretrained=deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
 tasks="aime24" 
 device="cuda"
 batch_size=8
 num_fewshot=0
-gen_kwargs='{"max_gen_toks": 2048, "temperature": 0.6, "top_p": 0.95}'
+gen_kwargs='{"max_gen_toks": 32768, "temperature": 0.6, "top_p": 0.95}'
 num_gpus=1
 
 currtime=$(date +%Y-%m-%d/%H:%M:%S)
@@ -34,9 +34,26 @@ mkdir -p $output_dir
 output_path=$(sh bash_scripts/save-output.sh $output_file $output_dir)
 
 # Run evaluation script
-torchrun --nproc_per_node $num_gpus \
+if [ "$num_gpus" -gt 1 ]; then
+    # torchrun \
+    #     --nproc_per_node $num_gpus \
+    #     --master_addr=127.0.0.1 \
+    #     --master_port=29500 \
+    #     lm_eval --model $model \
+    #     --model_args $model_args \
+    #     --tasks $tasks \
+    #     --device $device \
+    #     --batch_size $batch_size \
+    #     --num_fewshot $num_fewshot \
+    #     --apply_chat_template \
+    #     --fewshot_as_multiturn \
+    #     --output_path $output_dir \
+    #     --gen_kwargs "$gen_kwargs" \
+    #     --log_samples \
+    #     &> $output_path
+
     lm_eval --model $model \
-    --model_args $model_args \
+    --model_args "${model_args},tensor_parallel_size=${num_gpus}" \
     --tasks $tasks \
     --device $device \
     --batch_size $batch_size \
@@ -47,16 +64,19 @@ torchrun --nproc_per_node $num_gpus \
     --gen_kwargs "$gen_kwargs" \
     --log_samples \
     &> $output_path
-
-# lm_eval --model hf \
-#     --model_args pretrained=deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B \
-#     --tasks aime24 \
-#     --device cuda:0 \
-#     --batch_size 8 \
-#     --num_fewshot 0 \
-#     --apply_chat_template \
-#     --fewshot_as_multiturn \
-#     --gen_kwargs '{"max_gen_toks": 32768, "temperature": 0.6, "top_p": 0.95}'
+else
+    lm_eval --model $model \
+    --model_args $model_args \
+    --tasks $tasks \
+    --device $device \
+    --batch_size $batch_size \
+    --num_fewshot $num_fewshot \
+    --apply_chat_template \
+    --fewshot_as_multiturn \
+    --gen_kwargs "$gen_kwargs" \
+    --output_path $output_dir \
+    &> $output_path
+fi
 
 # Record the ending time
 end_time=$(date +%s)

@@ -868,6 +868,7 @@ class ConfigurableTask(Task):
 
         if self.config.filter_list is not None:
             self._filters = []
+            print("config does somehow have a filter_list parameter")
             for filter_config in self.config.filter_list:
                 filter_name = filter_config["name"]
                 filter_functions = filter_config["filter"]
@@ -880,6 +881,7 @@ class ConfigurableTask(Task):
                 filter_pipeline = build_filter_ensemble(filter_name, components)
                 self._filters.append(filter_pipeline)
         else:
+            print("config does NOT somehow have a filter_list parameter")
             # TODO: handle repeats in a more general way rather than just discarding
             eval_logger.debug(
                 "No custom filters defined. Using default 'take_first' filter for handling repeats."

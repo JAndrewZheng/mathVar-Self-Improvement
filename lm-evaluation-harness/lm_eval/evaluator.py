@@ -432,7 +432,6 @@ def evaluate(
     fewshot_as_multiturn: bool = False,
     verbosity: str = "INFO",
     confirm_run_unsafe_code: bool = False,
-    repeats: int = 1,
 ):
     """Instantiate and evaluate a model on a list of tasks.
 
@@ -632,6 +631,7 @@ def evaluate(
                 metrics = task.process_results(
                     doc, [req.filtered_resps[filter_key] for req in requests]
                 )
+
                 if log_samples:
                     target = task.doc_to_target(doc)
                     example = {

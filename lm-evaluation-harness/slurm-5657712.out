@@ -1,7 +1,0 @@
-model=hf\n guard=\n repeats=
-Im here now
-model=hf
- guard=
- repeats=
-
-slurmstepd: error: *** JOB 5657712 ON tron47 CANCELLED AT 2025-10-29T10:21:40 ***
