@@ -7,7 +7,7 @@ tasks="aime24"
 device="cuda"
 batch_size=8
 num_fewshot=0
-gen_kwargs='{"max_gen_toks": 32768, "temperature": 0.6, "top_p": 0.95}'
+gen_kwargs='{"max_gen_toks": 65536, "temperature": 0.6, "top_p": 0.95}'
 num_gpus=1
 
 currtime=$(date +%Y-%m-%d/%H:%M:%S)
@@ -75,6 +75,7 @@ else
     --fewshot_as_multiturn \
     --gen_kwargs "$gen_kwargs" \
     --output_path $output_dir \
+    --log_samples \
     &> $output_path
 fi
 

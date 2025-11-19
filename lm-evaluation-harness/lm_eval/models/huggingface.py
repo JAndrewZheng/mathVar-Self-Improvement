@@ -1437,7 +1437,8 @@ class HFLM(TemplateLM):
                 max_gen_toks = kwargs.pop("max_gen_toks")
             else:
                 max_gen_toks = self.max_gen_toks
-
+            print(f"self.backend: {self.backend}")
+            print(f"max_gen_toks: {max_gen_toks}")
             # set the max length in tokens of inputs ("context_enc")
             if self.backend == "causal":
                 # max len for inputs = max length, minus room to generate the max new tokens

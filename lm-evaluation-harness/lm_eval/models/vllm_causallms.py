@@ -202,7 +202,7 @@ class VLLM(TemplateLM):
             )
 
         from transformers import AutoConfig
-
+        
         self._config = AutoConfig.from_pretrained(
             pretrained, trust_remote_code=trust_remote_code, revision=revision
         )

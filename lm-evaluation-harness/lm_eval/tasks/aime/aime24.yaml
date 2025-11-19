@@ -22,7 +22,7 @@ generation_kwargs:
     - "<|eot_id|>"
   do_sample: false
   temperature: 0.6
-  max_gen_toks: 32768
+  max_gen_toks: 131072
 repeats: 1
 num_fewshot: 0
 metadata:

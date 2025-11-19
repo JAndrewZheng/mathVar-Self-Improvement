@@ -455,7 +455,7 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
     request_caching_args = request_caching_arg_to_dict(
         cache_requests=args.cache_requests
     )
-
+    
     results = evaluator.simple_evaluate(
         model=args.model,
         model_args=args.model_args,

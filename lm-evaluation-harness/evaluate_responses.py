@@ -21,8 +21,8 @@ def entropy(answers: List[Union[int, str]]) -> float:
     for val, count in counts.items():
         if val != "N/A":
             entropy += (count/total) * log2(count/total)
-        # else:
-        #     entropy += count * (1/total) * log2(1/total)
+        else:
+            entropy += count * (1/total) * log2(1/total)
 
     if entropy != 0:
         entropy = -entropy
@@ -62,15 +62,20 @@ def main():
     
     # Calculate num of correct answers
     num_correct = []
+    num_unique = []
     for i, answers in enumerate(res.values()):
         correct = 0
+        uniques = set()
         for answer in answers:
+            uniques.add(answer)
             if str(answer) == str(targets[i]):
                 correct += 1
         num_correct.append(correct)
+        num_unique.append(len(uniques))
 
     out_df["Num Correct"] = num_correct
     out_df["Entropy"] = [entropy(answers) for answers in res.values()]
+    out_df["Num of Unique Answers"] = num_unique
 
     out_df = pd.DataFrame(out_df)
     out_df.to_csv("outputs.csv")
@@ -82,17 +87,31 @@ def main():
 
     pairs = list(zip(out_df["Num Correct"], out_df["Entropy"] ))
     counts = Counter(pairs)
-    freqs = np.array([counts[(xi, yi)] for xi, yi in pairs])
 
     colors = ["blue", "green", "red"]
     for i, freq in enumerate(set(counts.values())):
-        print("i freq", i, freq)
         pairs = [item for (item, value) in counts.items() if value == freq]
         x_vals, y_vals = zip(*pairs)
         ax.scatter(x_vals, y_vals, color=colors[i], label=str(freq))
 
     ax.legend(title="Frequency")
     fig.savefig("correct_answers_vs_entropy.png")
+
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.set_xlabel("Answers Correct", fontsize=15)
+    ax.set_ylabel("Number of Unique Answers", fontsize=15)
+
+    pairs = list(zip(out_df["Num Correct"], out_df["Num of Unique Answers"] ))
+    counts = Counter(pairs)
+
+    colors = ["blue", "green", "red", "orange"]
+    for i, freq in enumerate(set(counts.values())):
+        pairs = [item for (item, value) in counts.items() if value == freq]
+        x_vals, y_vals = zip(*pairs)
+        ax.scatter(x_vals, y_vals, color=colors[i], label=str(freq))
+
+    ax.legend(title="Frequency")
+    fig.savefig("correct_answers_vs_unique_answers.png")
 
 if __name__ == "__main__":
     main()

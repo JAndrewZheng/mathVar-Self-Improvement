@@ -23,7 +23,6 @@ def process_results(doc: dict, results: List[str]) -> Dict[str, int]:
         except (AssertionError, IndexError):
             pass
 
-    print(f"Answer: {answer}")
     # Check if answer matches target
     answer_key = next(k for k in doc.keys() if k.lower() == "answer")
     target = str(doc[answer_key])

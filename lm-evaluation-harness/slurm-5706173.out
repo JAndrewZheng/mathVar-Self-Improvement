@@ -1,0 +1,7 @@
+model=vllm\n guard=\n repeats=
+Im here now
+model=vllm
+ guard=
+ repeats=
+
+slurmstepd: error: *** JOB 5706173 ON tron49 CANCELLED AT 2025-11-05T21:57:19 ***
